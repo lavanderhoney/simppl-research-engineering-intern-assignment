@@ -1,0 +1,163 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 800px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#1f77b4", "id": "Anarchism", "label": "Anarchism", "shape": "dot", "title": "Subreddit: Anarchism\nTopics: recomendaci\u00f3n, collective, claims, forums, strife, money, anarchistagency, greek, artists, hamburgers"}, {"color": "#e377c2", "id": "Conservative", "label": "Conservative", "shape": "dot", "title": "Subreddit: Conservative\nTopics: surely, drug, gop, lobbyists, diversified, tuition, tied, agree, pay, historically"}, {"color": "#ff7f0e", "id": "Liberal", "label": "Liberal", "shape": "dot", "title": "Subreddit: Liberal\nTopics: calling, forums, money, china, allegations, electors, partisanship, economy, populist, post"}, {"color": "#17becf", "id": "PoliticalDiscussion", "label": "PoliticalDiscussion", "shape": "dot", "title": "Subreddit: PoliticalDiscussion\nTopics: gop, moderates, civility, klan, elections, troops, rehiring, partisanship, federal, states"}, {"color": "#17becf", "id": "Republican", "label": "Republican", "shape": "dot", "title": "Subreddit: Republican\nTopics: ev, na, watched, karen, pay, witness, presidenttrump, interceptions, forums, firing"}, {"color": "#1f77b4", "id": "democrats", "label": "democrats", "shape": "dot", "title": "Subreddit: democrats\nTopics: luigi, removed, violence, moderators, banned"}, {"color": "#d62728", "id": "neoliberal", "label": "neoliberal", "shape": "dot", "title": "Subreddit: neoliberal\nTopics: shipments, ev, gop, sympathy, payback, handling, kabul, scientists, cruelty, continued"}, {"color": "#bcbd22", "id": "politics", "label": "politics", "shape": "dot", "title": "Subreddit: politics\nTopics: cartoons, civility, coffee, cartoon, policy"}, {"color": "#bcbd22", "id": "socialism", "label": "socialism", "shape": "dot", "title": "Subreddit: socialism\nTopics: cruelty, collective, philly, nazism, china, artists, troops, economy, populist, wrote"}, {"color": "#bcbd22", "id": "worldpolitics", "label": "worldpolitics", "shape": "dot", "title": "Subreddit: worldpolitics\nTopics: pay, healthier, mtarsh, good, beautiful, brewed, cook, languages, way, panel"}]);
+                  edges = new vis.DataSet([{"from": "Anarchism", "title": "Shared Topics: republicans, bullshit, chicago, talks, older", "to": "Conservative", "value": 181}, {"from": "Anarchism", "title": "Shared Topics: karen, forums, moderates, money, elections", "to": "Liberal", "value": 362}, {"from": "Anarchism", "title": "Shared Topics: nationalism, republicans, ideology, fascism, talks", "to": "PoliticalDiscussion", "value": 122}, {"from": "Anarchism", "title": "Shared Topics: republicans, karen, title, law, ideology", "to": "Republican", "value": 185}, {"from": "Anarchism", "title": "Shared Topics: luigi, violence, moderators", "to": "democrats", "value": 3}, {"from": "Anarchism", "title": "Shared Topics: republicans, law, talks, eu, syria", "to": "neoliberal", "value": 128}, {"from": "Anarchism", "title": "Shared Topics: collective, autonomy, artists, elections, poverty", "to": "socialism", "value": 430}, {"from": "Anarchism", "title": "Shared Topics: project, older, ai, live, work", "to": "worldpolitics", "value": 90}, {"from": "Conservative", "title": "Shared Topics: debt, gop, republicans, elon, pay", "to": "Liberal", "value": 290}, {"from": "Conservative", "title": "Shared Topics: gop, republicans, elon, talks, retirement", "to": "PoliticalDiscussion", "value": 121}, {"from": "Conservative", "title": "Shared Topics: republicans, elon, pay, come, reform", "to": "Republican", "value": 168}, {"from": "Conservative", "title": "Shared Topics: violence", "to": "democrats", "value": 1}, {"from": "Conservative", "title": "Shared Topics: gop, republicans, talks, article, virginia", "to": "neoliberal", "value": 111}, {"from": "Conservative", "title": "Shared Topics: republicans, elon, chicago, historically, generation", "to": "socialism", "value": 197}, {"from": "Conservative", "title": "Shared Topics: happiness, pay, hardest, dogs, movie", "to": "worldpolitics", "value": 61}, {"from": "Liberal", "title": "Shared Topics: gop, discriminatory, nationalism, elon, republicans", "to": "PoliticalDiscussion", "value": 187}, {"from": "Liberal", "title": "Shared Topics: republicans, watched, karen, law, elon", "to": "Republican", "value": 262}, {"from": "Liberal", "title": "Shared Topics: violence, banned, moderators", "to": "democrats", "value": 3}, {"from": "Liberal", "title": "Shared Topics: gop, republicans, law, transgender, talks", "to": "neoliberal", "value": 221}, {"from": "Liberal", "title": "Shared Topics: policy", "to": "politics", "value": 1}, {"from": "Liberal", "title": "Shared Topics: pessimistic, rousseau, generation, china, elections", "to": "socialism", "value": 396}, {"from": "Liberal", "title": "Shared Topics: pay, tolerance, press, loved, probably", "to": "worldpolitics", "value": 103}, {"from": "PoliticalDiscussion", "title": "Shared Topics: republicans, elon, ideology, fascism, reform", "to": "Republican", "value": 103}, {"from": "PoliticalDiscussion", "title": "Shared Topics: gop, republicans, legislature, talks, leadership", "to": "neoliberal", "value": 109}, {"from": "PoliticalDiscussion", "title": "Shared Topics: civility", "to": "politics", "value": 1}, {"from": "PoliticalDiscussion", "title": "Shared Topics: nationalism, elon, republicans, ideology, fascism", "to": "socialism", "value": 141}, {"from": "PoliticalDiscussion", "title": "Shared Topics: political, thinking, politics, college, capitalism", "to": "worldpolitics", "value": 8}, {"from": "Republican", "title": "Shared Topics: removed, banned", "to": "democrats", "value": 2}, {"from": "Republican", "title": "Shared Topics: ev, republicans, law, enforcement, article", "to": "neoliberal", "value": 109}, {"from": "Republican", "title": "Shared Topics: policy", "to": "politics", "value": 1}, {"from": "Republican", "title": "Shared Topics: republicans, elon, title, ideology, fascism", "to": "socialism", "value": 182}, {"from": "Republican", "title": "Shared Topics: kids, god, foods, fear, pay", "to": "worldpolitics", "value": 61}, {"from": "democrats", "title": "Shared Topics: moderators", "to": "neoliberal", "value": 1}, {"from": "democrats", "title": "Shared Topics: violence, banned", "to": "socialism", "value": 2}, {"from": "democrats", "title": "Shared Topics: banned, moderators", "to": "worldpolitics", "value": 2}, {"from": "neoliberal", "title": "Shared Topics: republicans, guantanamo, cruelty, leadership, eu", "to": "socialism", "value": 150}, {"from": "neoliberal", "title": "Shared Topics: stand, hot, foods, bot, aid", "to": "worldpolitics", "value": 18}, {"from": "politics", "title": "Shared Topics: policy", "to": "socialism", "value": 1}, {"from": "politics", "title": "Shared Topics: coffee, cartoon", "to": "worldpolitics", "value": 2}, {"from": "socialism", "title": "Shared Topics: kids, beef, fear, historical, app", "to": "worldpolitics", "value": 76}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "barnesHut": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.1,
+            "damping": 0.3,
+            "gravitationalConstant": -5000,
+            "springConstant": 0.001,
+            "springLength": 200
+        },
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
