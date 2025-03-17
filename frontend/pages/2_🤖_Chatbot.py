@@ -28,7 +28,7 @@ def query_gemini(agent, user_input: str):
         return f"⚠️ Unexpected error: {str(e)}"
 
 st.title("Chat with Your CSV 📢")
-
+st.write("This is a general, RAG based chatbot that can answer questions about the given CSV data.\n It can covert the text query to pandas query and get the result from the CSV data.")
 # Read CSV into DataFrame
 # Initialize Gemini 1.5 Flash model
 API_KEY = "your-google-api-key"  # Replace with your API key
