@@ -10,7 +10,7 @@ from requests.exceptions import HTTPError
 
 load_dotenv()
 # Streamlit UI setup
-st.set_page_config(page_title="Chatbot", layout="centered")
+st.set_page_config(page_title="Chatbot", layout="centered", page_icon="🤖")
 
 
 
@@ -39,7 +39,7 @@ llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash",
                             "explanations, and helpful insights rather than just numbers.")
 
 # Create LangChain CSV Agent
-agent = create_csv_agent(llm, "../reddit_cleaned_v2.csv", verbose=False,allow_dangerous_code=True)
+agent = create_csv_agent(llm, "../reddit_cleaned_v2.csv", verbose=True,allow_dangerous_code=True)
 
 # Chat interface
 if "messages" not in st.session_state:
@@ -50,23 +50,23 @@ for message in st.session_state["messages"]:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# user_input = st.chat_input("Ask a question about your CSV...")
-# if user_input:
-#     with st.chat_message("user"):
-#         st.write(user_input)
-#     with st.chat_message("assistant"):
-#         with st.spinner("Thinking... 🤔"):
-#             response = query_gemini(agent, user_input)
-#             st.write(response)
-# User input
-user_input = st.chat_input("Ask me anything about the CSV...")
+user_input = st.chat_input("Ask a question about your CSV...")
 if user_input:
-    st.session_state["messages"].append({"role": "user", "content": user_input})
     with st.chat_message("user"):
-        st.markdown(user_input)
-    
+        st.write(user_input)
     with st.chat_message("assistant"):
-        st_callback = StreamlitCallbackHandler(st.container())
-        response = agent.run(user_input, callbacks=[st_callback])
-        st.markdown(response)
-        st.session_state["messages"].append({"role": "assistant", "content": response})
+        with st.spinner("Thinking... 🤔"):
+            response = query_gemini(agent, user_input)
+            st.write(response)
+# User input
+# user_input = st.chat_input("Ask me anything about the CSV...")
+# if user_input:
+#     st.session_state["messages"].append({"role": "user", "content": user_input})
+#     with st.chat_message("user"):
+#         st.markdown(user_input)
+    
+#     with st.chat_message("assistant"):
+#         st_callback = StreamlitCallbackHandler(st.container())
+#         response = agent.run(user_input, callbacks=[st_callback])
+#         st.markdown(response)
+#         st.session_state["messages"].append({"role": "assistant", "content": response})
