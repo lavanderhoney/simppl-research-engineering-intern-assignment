@@ -20,7 +20,8 @@ sections = {
     "Topic Distribution": "#topic-distribution",
     "Narrative Flow": "#narrative-flow",
     "Sentiment Analysis": "#sentiment-analysis",
-    "External Domains": "#domains"
+    "External Domains": "#domains",
+    "Misinformation Analysis": "#misinformation"
 }
 for section, link in sections.items():
     st.sidebar.markdown(f"[{section}]({link})", unsafe_allow_html=True)
@@ -147,3 +148,32 @@ with col2:
     st.write("#### Overall Domain Distribution")
     with open("plots/domains_piechart.html", 'r', encoding="utf-8") as f:
         components.html(f.read(), height=600, scrolling=True)
+        
+st.header("Misinformation Analysis", anchor="misinformation")
+st.write("To gauge the misinformation in the dataset, I've used a pre-trained BERT model to classify the posts as fake or not.")
+
+st.write("### Fake vs. Real Posts: Counts and Engagement Metrics")
+with st.expander("🔎 What does this graph tell us?"):
+    st.markdown(""" 
+                The graph shows the distribution of fake and real news across the data. \n
+             The model has classified the posts as fake or real based on the content. The posts are mostly real, with only a relatively few fake posts. \n
+             The bar charts for each engagement metrics,i.e, avg. number of upvote ratio, number of comments, and number of crossposts, such that the count for fake news is comparable to the count for real news. \n
+             This gives us an idea of the engagement of the fake news posts compared to the real news posts. \n
+             Clearly the fake posts recieve as much engagement as real posts, which shows the typical characteristcs of social media.
+             """)
+with open("plots/fake_news_bar.html", "r", encoding="utf-8") as f:
+    components.html(f.read(), height=600, scrolling=True)
+    
+
+st.write("### Scatter Matrix of Engagement Features by Fake/Real Posts")
+with st.expander(" 🔎 What does this graph tell us?"):
+    st.markdown("""
+                This is a scatter plot matrix which compares the relation between the engagement metrics, and the relation to fake/real posts.
+                The values of score, num of comments,and crossposts have been normalized in the range of 0-1, to be compatible with upvote-ratio. \n
+                It shows if fake vs. real posts exhibit distinct patterns in upvotes, scores, comments, or crossposts. \n
+                This can give us an idea of how the engagement metrics are related to the fake/real news posts. \n
+                The scatter plot matrix shows that the fake news posts have a similar distribution of engagement metrics as the real news posts. This indicates that the fake news posts are not easily distinguishable based on the engagement metrics alone.  
+                """
+                )
+with open("plots/fake_news_scatter.html", "r", encoding="utf-8") as f:
+    components.html(f.read(), height=1200, scrolling=True)
