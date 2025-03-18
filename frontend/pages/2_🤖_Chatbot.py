@@ -39,7 +39,7 @@ llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash",
                             "explanations, and helpful insights rather than just numbers.")
 
 # Create LangChain CSV Agent
-agent = create_csv_agent(llm, "../reddit_cleaned_v2.csv", verbose=True,allow_dangerous_code=True)
+agent = create_csv_agent(llm, "reddit_cleaned_v2.csv", verbose=True,allow_dangerous_code=True)
 
 # Chat interface
 if "messages" not in st.session_state:
