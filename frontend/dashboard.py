@@ -37,8 +37,8 @@ st.markdown(scroll_script, unsafe_allow_html=True)
 
 # Header and Introduction
 st.title("Reddit Social Media Insights Dashboard 🔎")
+st.header("Overview", anchor="overview")
 st.markdown("""
-## <a name='overview'>Overview</a>
 This dashboard provides insights into Reddit posts, analyzing trends, topics, and sentiment across different subreddits. 
 It aims to explore:
 - The temporal trends in post activity
