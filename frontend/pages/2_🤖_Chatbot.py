@@ -17,7 +17,7 @@ st.set_page_config(page_title="Chatbot", layout="centered", page_icon="🤖")
 @backoff.on_exception(backoff.expo, (requests.exceptions.HTTPError, RuntimeError, ValueError), max_tries=3)
 def query_gemini(agent, user_input: str):
     try:
-        response = agent.run(user_input)
+        response = agent.invoke(user_input)
         return response
     except requests.exceptions.HTTPError as e:
         if e.response.status_code == 500:
