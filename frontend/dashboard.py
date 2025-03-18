@@ -51,21 +51,21 @@ It aims to explore:
 st.header("Temporal Analysis", anchor="temporal-analysis")
 st.write("### Number of Posts Over Time")
 st.write("This line chart shows the number of posts over time, including a 15-day rolling average to identify trends.")
-with open("plots/posts_overtime.html", 'r', encoding="utf-8") as f:
+with open("frontend/plots/posts_overtime.html", 'r', encoding="utf-8") as f:
     components.html(f.read(), height=600, width=2000, scrolling=True)
 
 # Section 2: Topic Distribution
 st.header("Topic Distribution", anchor="topic-distribution")
 st.write("### Distribution of Topics by Subreddit")
 st.write("This visualization highlights the most dominant topics in each subreddit, reflecting community interests.")
-with open("plots/topics_in_posts.html", 'r', encoding="utf-8") as f:
+with open("frontend/plots/topics_in_posts.html", 'r', encoding="utf-8") as f:
     components.html(f.read(), height=600, width=2000, scrolling=True)
 
 # Section 3: Narrative Flow
 st.header("Narrative Flow", anchor="narrative-flow")
 st.write("### Flow of Narratives Across Subreddits")
 st.write("This Pyvis graph shows how different narratives spread across subreddits, revealing shared interests or diverging opinions.")
-with open("plots/narrative_spread.html", 'r', encoding="utf-8") as f:
+with open("frontend/plots/narrative_spread.html", 'r', encoding="utf-8") as f:
     components.html(f.read(), height=600, width=2000, scrolling=True)
 
 # Section 4: Sentiment Analysis
@@ -75,15 +75,15 @@ with st.container():
     col1, col2= st.columns(2)
     with col1:
         st.write("#### Sentiment Distribution")
-        with open("plots/sentiment_histogram.html", 'r', encoding="utf-8") as f:
+        with open("frontend/plots/sentiment_histogram.html", 'r', encoding="utf-8") as f:
             components.html(f.read(), height=600, width=800, scrolling=True)
     with col2:
         st.write("#### Sentiment Heatmap")
-        with open("plots/sentiment_heatmap.html", 'r', encoding="utf-8") as f:
+        with open("frontend/plots/sentiment_heatmap.html", 'r', encoding="utf-8") as f:
             components.html(f.read(), height=600, width=800, scrolling=True)
     st.markdown('<div style="margin-top: -100px;"></div>', unsafe_allow_html=True) 
     st.write("#### Average Sentiment Score Over Time")
-    with open("plots/sentiment_avg.html", 'r', encoding="utf-8") as f:
+    with open("frontend/plots/sentiment_avg.html", 'r', encoding="utf-8") as f:
         components.html(f.read(), height=600, scrolling=True)
 
 st.header("External Domains", anchor="domains")
@@ -91,9 +91,9 @@ st.write("What are the most popular domains shared on the posts of this data?")
 col1, col2 = st.columns(2)
 with col1:
     st.write("#### Domain Distribution by Subreddit")
-    with open("plots/domain_subreddit.html", 'r', encoding="utf-8") as f:
+    with open("frontend/plots/domain_subreddit.html", 'r', encoding="utf-8") as f:
         components.html(f.read(), height=600, scrolling=True)
 with col2:
     st.write("#### Overall Domain Distribution")
-    with open("plots/domains_piechart.html", 'r', encoding="utf-8") as f:
+    with open("frontend/plots/domains_piechart.html", 'r', encoding="utf-8") as f:
         components.html(f.read(), height=600, scrolling=True)
