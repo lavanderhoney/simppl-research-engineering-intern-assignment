@@ -64,4 +64,5 @@ streamlit run dashboard.py
 ![alt text](<Screenshot 2025-03-18 225012.png>)
 
 ## Demo Video
-https://drive.google.com/file/d/13ocoqQanRAtgbTJ1iP2qsTd_66X8UguW/view?usp=sharing
+Part-1: https://drive.google.com/file/d/13ocoqQanRAtgbTJ1iP2qsTd_66X8UguW/view?usp=sharing
+Part-2: https://drive.google.com/file/d/1Ka9hpGMqJkscEcNp168iC_eYQT7x7mjQ/view?usp=sharing
