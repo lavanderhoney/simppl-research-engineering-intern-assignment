@@ -51,49 +51,97 @@ It aims to explore:
 st.header("Temporal Analysis", anchor="temporal-analysis")
 st.write("### Number of Posts Over Time")
 st.write("This line chart shows the number of posts over time, including a 15-day rolling average to identify trends.")
-with open("frontend/plots/posts_overtime.html", 'r', encoding="utf-8") as f:
+with st.expander("🔎 What does this graph tell us?"):
+    st.markdown("""🚀 We observe fluctuations in the number of posts. Peaks might correlate with trending topics, news events, or major discussions.\n 
+                These peaks appear around Feb 2025""")
+
+with open("plots/posts_overtime.html", 'r', encoding="utf-8") as f:
     components.html(f.read(), height=600, width=2000, scrolling=True)
 
 # Section 2: Topic Distribution
 st.header("Topic Distribution", anchor="topic-distribution")
 st.write("### Distribution of Topics by Subreddit")
 st.write("This visualization highlights the most dominant topics in each subreddit, reflecting community interests.")
-with open("frontend/plots/topics_in_posts.html", 'r', encoding="utf-8") as f:
+with st.expander("🔎 What does this graph tell us?"):
+        st.markdown("""
+                    This bar chart shows which topics are popular among the subreddits.\n 
+                    The common topic of discourse among all the subreddits is "Personal Perspectives on Socialism/Anarchism. This gives us an idea of the mindset of the users in these subreddits.\n
+                    While there are some topics that are unique to a particular subreddit, there are also some topics that are common across multiple subreddits. This could indicate shared interests or discussions that transcend subreddit boundaries.
+                 """)
+
+with open("plots/topics_in_posts.html", 'r', encoding="utf-8") as f:
     components.html(f.read(), height=600, width=2000, scrolling=True)
 
 # Section 3: Narrative Flow
 st.header("Narrative Flow", anchor="narrative-flow")
 st.write("### Flow of Narratives Across Subreddits")
 st.write("This Pyvis graph shows how different narratives spread across subreddits, revealing shared interests or diverging opinions.")
-with open("frontend/plots/narrative_spread.html", 'r', encoding="utf-8") as f:
+with st.expander("🔎 What does this graph tell us?"):
+        st.markdown("""
+                    Here the size of the nodes indicates the number of posts in that subreddit. The thickness of the edges indicates the number of posts that are shared between the subreddits. \n
+                This gives us an idea of the flow of narratives across different subreddits. \n 
+                 The narratives here are defined by the keyowrds in the posts. The graph shows that there are some topics that are common across multiple subreddits, while there are some topics that are unique to a particular subreddit.\n
+                 The wordcloud bellow shows the most common keywords and their frequencies. This gives us an idea of the topics that are being discussed in the posts.
+                 """)
+
+with open("plots/narrative_spread.html", 'r', encoding="utf-8") as f:
     components.html(f.read(), height=600, width=2000, scrolling=True)
+st.image("plots/word_cloud.png", width=800)
+
 
 # Section 4: Sentiment Analysis
 st.header("Sentiment Analysis", anchor="sentiment-analysis")
 st.write("This visualization shows how sentiment varies between different subreddits, identifying communities with predominantly positive or negative discussions.")
 with st.container():
+    with st.expander("🔎 What does this graph tell us?"):
+        st.markdown(""" 
+                 With these two graphs, we get an overiew of the sentiment distribution across the subreddits and in general.\n
+                 It is clear that the posts in the given data are mostly having a neutral sentiment, indicated by the large number of posts in the neutral range in the histogram.\n
+                 The heatmap shows the sentiment distribution across the subreddits. The sentiment is mostly neutral across all the subreddits, with some extremes, like r/WorldPolitics being most neutral, r/Socialism being most positive, and r/Liberal being most negative. These are reflected by the color intensity in the heatmap.
+                 """)
     col1, col2= st.columns(2)
     with col1:
         st.write("#### Sentiment Distribution")
-        with open("frontend/plots/sentiment_histogram.html", 'r', encoding="utf-8") as f:
+        with open("plots/sentiment_histogram.html", 'r', encoding="utf-8") as f:
             components.html(f.read(), height=600, width=800, scrolling=True)
     with col2:
         st.write("#### Sentiment Heatmap")
-        with open("frontend/plots/sentiment_heatmap.html", 'r', encoding="utf-8") as f:
+        with open("plots/sentiment_heatmap.html", 'r', encoding="utf-8") as f:
             components.html(f.read(), height=600, width=800, scrolling=True)
+            
     st.markdown('<div style="margin-top: -100px;"></div>', unsafe_allow_html=True) 
-    st.write("#### Average Sentiment Score Over Time")
-    with open("frontend/plots/sentiment_avg.html", 'r', encoding="utf-8") as f:
-        components.html(f.read(), height=600, scrolling=True)
+    st.write("### Sentiment Over Time")
+    with st.expander("🔎 What does this graph tell us?"):
+        st.markdown(""" 
+                    This line chart shows how the average sentiment accross all the communities changes over time. \n
+                 Intererstingly, the average sentiment is neutral at the time of peak post activity, around Feb 2025. This could indicate that the users are discussing a wide range of topics, with varying sentiments. \n
+                 The sentiments fluctuate before this time, indicating that the discussions are varied and not focused on a single topic.
+                 """)
+    with st.container():
+        col1, col2 = st.columns(2)
+        with col1:
+            st.write("#### Avg Sentiment score over time")
+            with open("plots/sentiment_avg.html", 'r', encoding="utf-8") as f:
+                components.html(f.read(), height=600, scrolling=True)
+        with col2:
+            st.write("#### Count of positive and negative sentiments over time")
+            with open("plots/sentiment_overtime.html", "r", encoding="utf-8") as f:
+                components.html(f.read(), height=600, scrolling=True)
 
 st.header("External Domains", anchor="domains")
 st.write("What are the most popular domains shared on the posts of this data?")
+with st.expander("🔎 What does this graph tell us?"):
+    st.markdown(""" 
+                These two graphs show from where the redditors are sharing the content. The first graph shows the distribution of domains across the subreddits, while the second graph shows the overall distribution of domains. \n
+             We can judge the credibility of information flowing through the subreddits by looking at the domains. Among the top 15 domains, there are no controversial domains used.\n
+             The most common domain is youtube.com, used most by r/Republican
+             """)
 col1, col2 = st.columns(2)
 with col1:
     st.write("#### Domain Distribution by Subreddit")
-    with open("frontend/plots/domain_subreddit.html", 'r', encoding="utf-8") as f:
+    with open("plots/domain_subreddit.html", 'r', encoding="utf-8") as f:
         components.html(f.read(), height=600, scrolling=True)
 with col2:
     st.write("#### Overall Domain Distribution")
-    with open("frontend/plots/domains_piechart.html", 'r', encoding="utf-8") as f:
+    with open("plots/domains_piechart.html", 'r', encoding="utf-8") as f:
         components.html(f.read(), height=600, scrolling=True)
