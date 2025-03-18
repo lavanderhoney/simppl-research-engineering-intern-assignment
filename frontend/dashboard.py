@@ -52,10 +52,12 @@ st.header("Temporal Analysis", anchor="temporal-analysis")
 st.write("### Number of Posts Over Time")
 st.write("This line chart shows the number of posts over time, including a 15-day rolling average to identify trends.")
 with st.expander("🔎 What does this graph tell us?"):
-    st.markdown("""🚀 We observe fluctuations in the number of posts. Peaks might correlate with trending topics, news events, or major discussions.\n 
-                These peaks appear around Feb 2025""")
+    st.markdown("""
+                🚀 We observe fluctuations in the number of posts. Peaks might correlate with trending topics, news events, or major discussions.\n 
+                These peaks appear around Feb 2025
+                """)
 
-with open("frontend/plots/posts_overtime.html", 'r', encoding="utf-8") as f:
+with open("plots/posts_overtime.html", 'r', encoding="utf-8") as f:
     components.html(f.read(), height=600, width=2000, scrolling=True)
 
 # Section 2: Topic Distribution
@@ -69,7 +71,7 @@ with st.expander("🔎 What does this graph tell us?"):
                     While there are some topics that are unique to a particular subreddit, there are also some topics that are common across multiple subreddits. This could indicate shared interests or discussions that transcend subreddit boundaries.
                  """)
 
-with open("frontend/plots/topics_in_posts.html", 'r', encoding="utf-8") as f:
+with open("plots/topics_in_posts.html", 'r', encoding="utf-8") as f:
     components.html(f.read(), height=600, width=2000, scrolling=True)
 
 # Section 3: Narrative Flow
@@ -84,9 +86,9 @@ with st.expander("🔎 What does this graph tell us?"):
                  The wordcloud bellow shows the most common keywords and their frequencies. This gives us an idea of the topics that are being discussed in the posts.
                  """)
 
-with open("frontend/plots/narrative_spread.html", 'r', encoding="utf-8") as f:
+with open("plots/narrative_spread.html", 'r', encoding="utf-8") as f:
     components.html(f.read(), height=600, width=2000, scrolling=True)
-st.image("frontend/plots/word_cloud.png", width=800)
+st.image("plots/word_cloud.png", width=800)
 
 
 # Section 4: Sentiment Analysis
@@ -102,11 +104,11 @@ with st.container():
     col1, col2= st.columns(2)
     with col1:
         st.write("#### Sentiment Distribution")
-        with open("frontend/plots/sentiment_histogram.html", 'r', encoding="utf-8") as f:
+        with open("plots/sentiment_histogram.html", 'r', encoding="utf-8") as f:
             components.html(f.read(), height=600, width=800, scrolling=True)
     with col2:
         st.write("#### Sentiment Heatmap")
-        with open("frontend/plots/sentiment_heatmap.html", 'r', encoding="utf-8") as f:
+        with open("plots/sentiment_heatmap.html", 'r', encoding="utf-8") as f:
             components.html(f.read(), height=600, width=800, scrolling=True)
             
     st.markdown('<div style="margin-top: -100px;"></div>', unsafe_allow_html=True) 
@@ -121,11 +123,11 @@ with st.container():
         col1, col2 = st.columns(2)
         with col1:
             st.write("#### Avg Sentiment score over time")
-            with open("frontend/plots/sentiment_avg.html", 'r', encoding="utf-8") as f:
+            with open("plots/sentiment_avg.html", 'r', encoding="utf-8") as f:
                 components.html(f.read(), height=600, scrolling=True)
         with col2:
             st.write("#### Count of positive and negative sentiments over time")
-            with open("frontend/plots/sentiment_overtime.html", "r", encoding="utf-8") as f:
+            with open("plots/sentiment_overtime.html", "r", encoding="utf-8") as f:
                 components.html(f.read(), height=600, scrolling=True)
 
 st.header("External Domains", anchor="domains")
@@ -139,9 +141,9 @@ with st.expander("🔎 What does this graph tell us?"):
 col1, col2 = st.columns(2)
 with col1:
     st.write("#### Domain Distribution by Subreddit")
-    with open("frontend/plots/domain_subreddit.html", 'r', encoding="utf-8") as f:
+    with open("plots/domain_subreddit.html", 'r', encoding="utf-8") as f:
         components.html(f.read(), height=600, scrolling=True)
 with col2:
     st.write("#### Overall Domain Distribution")
-    with open("frontend/plots/domains_piechart.html", 'r', encoding="utf-8") as f:
+    with open("plots/domains_piechart.html", 'r', encoding="utf-8") as f:
         components.html(f.read(), height=600, scrolling=True)
